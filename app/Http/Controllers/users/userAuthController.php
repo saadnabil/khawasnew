@@ -96,7 +96,7 @@ class userAuthController extends Controller
 
     public function logout(Request $request){
         auth()->logout();
-        return redirect()->route('user.showloginform');
+        return redirect()->route('login');
     }
     //
 }

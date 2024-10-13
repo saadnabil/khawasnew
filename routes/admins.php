@@ -199,11 +199,12 @@ Route::get('/license-expired', function () {
  })->name('license.expired');
 
 
+
 Route::group(['middleware'=> ['guest:admin']], function(){
 Route::get('login', [AdminsAuthController::class, 'showloginform'])->name('admin.showloginform');
+Route::post('login', [AdminsAuthController::class, 'login'])->name('admin.login');
 Route::get('inactive', [contactUsController::class, 'inactiveDesign'])->name('admin.inactive');
 
-Route::post('login', [AdminsAuthController::class, 'login'])->name('admin.login');
 });
 
 

@@ -88,16 +88,20 @@ Route::get('Password', [userAuthController::class , 'UserShowPassword'])->name('
 
 });
 
+
+Route::post('logout', [userAuthController::class , 'logout'])->name('user.logout');
+Route::get('change-lang', [LanguageController::class, 'change'])->name('changelang');
+
+
+
 Route::group(['middleware'=> ['guest:web']], function(){
-Route::get('/', [userAuthController::class , 'showloginform'])->name('user.showloginform');
+
+   Route::get('login', [userAuthController::class , 'showloginform'])->name('login');
     Route::post('login', [userAuthController::class , 'login'])->name('user.login');
     Route::get('inactive', [contactusUserController::class, 'inactiveDesign'])->name('user.inactive');
 
 });
-    Route::post('logout', [userAuthController::class , 'logout'])->name('user.logout');
-    Route::get('change-lang', [LanguageController::class, 'change'])->name('changelang');
-
-
+   
 
 
 });

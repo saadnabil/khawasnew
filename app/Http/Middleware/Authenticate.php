@@ -19,7 +19,7 @@ class Authenticate extends Middleware
             if (count($segments) >= 1 && $segments[0] === 'dashboard') {
                 return route('admin.showloginform'); // Redirect to the admin login page
             }elseif(count($segments) >= 1 && $segments[0] === 'user'){
-                return route('user.showloginform'); // Redirect to the user login page
+                return route('login'); // Redirect to the user login page
             }
         }
 
