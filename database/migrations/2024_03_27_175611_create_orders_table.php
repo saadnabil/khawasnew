@@ -20,7 +20,7 @@ return new class extends Migration
                     ->onDelete('cascade')
                     ->onUpdate('cascade');
             $table->double('total_price')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status')->default('pending');
             $table->string('payment_type')->nullable()->default('cash');
             $table->foreignId('address_id')
                     ->nullable()

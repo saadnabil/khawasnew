@@ -16,14 +16,18 @@ class UserCheckAuth
      */
     public function handle(Request $request, Closure $next): Response
     {
-
-         if(!auth()->check()){
+        // Check if the user is authenticated
+        if (!auth()->check()) {
             return redirect()->route('user.showloginform');
         }
-        if (Auth::user()->status == 0) {
+    
+        // Check if the authenticated user's status is inactive
+        if (Auth::guard('web')->user()->status == 0) {
             Auth::logout(); // Logout the user if inactive
-            return redirect()->route('user.deacivatedAccount')->with('error', 'Your account is inactive. Please contact the administrator.');
+            return redirect()->route('user.inactive')->with('error', 'Your account is inactive. Please contact the administrator.');
         }
+    
         return $next($request);
     }
+    
 }

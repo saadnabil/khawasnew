@@ -31,7 +31,7 @@
 	            </button>
 
 	            <!-- Page Title -->
-	            <h4 class="page-title d-none d-sm-block">Dashboards</h4>
+	            <h4 class="page-title d-none d-sm-block">{{__('translation.Dashboard')}}</h4>
 	        </div>
 
 	        <ul class="topbar-menu d-flex align-items-center gap-3">
@@ -46,44 +46,57 @@
 	                </div>
 	            </li>
 
+
+
+
+	            @php
+	            $flagArr = [
+	            'en' => asset('assets/images/flags/us.jpg'),
+	            'ar' => asset('assets/images/flags/Download_Saudi_Arabia_National_Flag_Illustration_Editable_Vector_Image_for_free.jpg'),
+	            'de' => asset('assets/images/flags/germany.jpg'),
+	            ];
+	            @endphp
+
 	            <li class="dropdown">
 	                <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-	                    <img src="{{asset('assets/images/flags/us.jpg')}}" alt="user-image" class="me-0 me-sm-1" height="12">
-	                    <span class="align-middle d-none d-lg-inline-block">English</span>
+	                    <img src="{{ $flagArr[app()->getLocale()] }}" alt="user-image" class="me-0 me-sm-1" height="12">
+	                    <span class="align-middle d-none d-lg-inline-block">{{ __('translation.' . app()->getLocale()) }}</span>
 	                    <span class="mdi mdi-chevron-down fs-22 d-none d-sm-inline-block align-middle"></span>
 
 	                </a>
 	                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated">
 
 	                    <!-- item-->
-	                    <a href="javascript:void(0);" class="dropdown-item">
+	                    <a href="{{ route('changelang', ['lang' => 'de']) }}" class="dropdown-item">
 	                        <img src="{{asset('assets/images/flags/germany.jpg')}}" alt="user-image" class="me-1" height="12"> <span class="align-middle">German</span>
 	                    </a>
 
 	                    <!-- item-->
-	                    <a href="javascript:void(0);" class="dropdown-item">
-	                        <img src="{{asset('assets/images/flags/italy.jpg')}}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italian</span>
+	                    <a href="{{ route('changelang', ['lang' => 'en']) }}" class="dropdown-item">
+	                        <img src="{{asset('assets/images/flags/us.jpg')}}" alt="user-image" class="me-1" height="12"> <span class="align-middle">English</span>
 	                    </a>
 
-	                    <!-- item-->
-	                    <a href="javascript:void(0);" class="dropdown-item">
-	                        <img src="{{asset('assets/images/flags/spain.jpg')}}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
-	                    </a>
+
 
 	                    <!-- item-->
-	                    <a href="javascript:void(0);" class="dropdown-item">
-	                        <img src="{{asset('assets/images/flags/russia.jpg')}}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Russian</span>
+	                    <a href="{{ route('changelang', ['lang' => 'ar']) }}" class="dropdown-item">
+	                        <img src="{{asset('assets/images/flags/Download_Saudi_Arabia_National_Flag_Illustration_Editable_Vector_Image_for_free.jpg')}}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Arabic</span>
 	                    </a>
 
 	                </div>
 	            </li>
 	            <!--cart-->
-	            @include('layout.UserCart')
+
+	            @if(!in_array(request()->url() , [route('carts.details'), route('carts.checkoutform')]))
+	            <section class="" id="usercart" style="">
+	                @include('layout.UserCart')
+	            </section>
+	            @endif
 
 
 
 
-	            <li class="dropdown notification-list">
+	            {{-- <li class="dropdown notification-list">
 	                <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
 	                    <i class="ri-mail-line fs-22"></i>
 
@@ -210,7 +223,7 @@
 	                    </a>
 
 	                </div>
-	            </li>
+	            </li> --}}
 
 
 
@@ -226,43 +239,55 @@
 	                </div>
 	            </li>
 
-	            <li class="dropdown">
-	                <a class="nav-link dropdown-toggle arrow-none nav-user" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-	                    <span class="account-user-avatar">
-	                        <img src="{{asset('assets/images/users/avatar-1.jpg')}}" alt="user-image" width="32" class="rounded-circle">
-	                    </span>
-	                    <span class="d-lg-block d-none">
-	                        <h5 class="my-0 fw-normal">{{Auth::guard('web')->user()->name }}<i class="ri-arrow-down-s-line fs-22 d-none d-sm-inline-block align-middle"></i></h5>
-	                    </span>
+	            @php
+	            $currentUser = auth()->guard('web')->user(); // Get the currently authenticated user
+	            @endphp
+
+
+
+	            <li class="nav-item dropdown">
+	                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	                    @if ($currentUser && $currentUser->image)
+	                    <img src="{{ asset('storage/' . $currentUser->image) }}" alt="user-image" width="32" class="rounded-circle me-2">
+	                    @endif
+
+	                    <span>{{ Auth::guard('web')->user()->name }}</span>
+	                    {{-- <i class="ri-arrow-down-s-line fs-22 ms-2"></i> --}}
 	                </a>
-	                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated profile-dropdown">
-	                    <!-- item-->
-	                    <!-- <div class=" dropdown-header noti-title">
-									<h6 class="text-overflow m-0">Welcome  !</h6>
-									
-                                    </a>
-								</div> -->
 
-	                    <!-- item-->
+	                <ul class="dropdown-menu dropdown-menu-end profile-dropdown" aria-labelledby="navbarDropdown">
+	                    <li>
+	                        <div class="card border-0" style="width: 18rem;">
+	                            <div class="card-body p-0">
+	                                <div class="row m-0 mt-3 p-0 align-items-center">
+	                                    <div class="col-3 m-0 p-0 text-center">
+	                                        @if ($currentUser && $currentUser->image)
+	                                        <img src="{{ asset('storage/' . $currentUser->image) }}" alt="user-image" class="rounded-circle" width="50px" height="50px">
+	                                        @endif
+	                                    </div>
+	                                    <div class="col-9 m-0 p-0">
+	                                        <h5 class="card-title m-0">{{ Auth::guard('web')->user()->name }}</h5>
+	                                        <h6 class="card-subtitle mb-2 text-muted m-0">{{ Auth::guard('web')->user()->phone }} </h6>
+	                                    </div>
+	                                </div>
 
-	                    <!-- item-->
-	                    <a href="pages-profile.html" class="dropdown-item">
-	                        <i class="ri-settings-4-line fs-16 align-middle me-1"></i>
-	                        <span>Settings</span>
-	                    </a>
+	                                <hr>
 
-
-
-
-	                    <!-- item-->
-	                    <form action="{{route('user.logout')}}" method="post">
-	                        @csrf
-	                        <button type="submit" class="dropdown-item">
-	                            <i class="ri-logout-circle-r-line align-middle me-1"></i>
-	                            <span>Logout</span>
-	                        </button>
-	                    </form>
-	                </div>
+	                                <div class="list-group m-0">
+	                                    <a href="{{route('user.UserShowPassword')}}" class="list-group-item border-0 list-group-item-action">
+	                                        <i class="ri-settings-4-line fs-16 align-middle me-1"></i>{{__('translation.Settings')}}
+	                                    </a>
+	                                    <form action="{{ route('user.logout') }}" method="post" class="m-0">
+	                                        @csrf
+	                                        <button type="submit" class="list-group-item border-0 list-group-item-action text-danger">
+	                                            <i class="ri-logout-circle-r-line align-middle me-1"></i>{{__('translation.Log Out')}}
+	                                        </button>
+	                                    </form>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </li>
+	                </ul>
 	            </li>
 	        </ul>
 	    </div>

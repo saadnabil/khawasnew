@@ -28,13 +28,19 @@ return [
     |
     */
 
+   
+
     'disks' => [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root' => storage_path('app/public'),
             'throw' => false,
         ],
+
+        'max_upload_size' => env('MAX_UPLOAD_SIZE', 1073741824), // 1GB
+
+
 
         'public' => [
             'driver' => 'local',

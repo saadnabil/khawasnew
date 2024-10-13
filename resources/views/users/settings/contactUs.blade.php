@@ -11,7 +11,7 @@
             <div class="card-body">
                 <!-- Contact Info Box -->
                 <div class="box">
-                    <div class="t-purple font-bold-700 font-18 my-1"><strong>Contact Us Info</strong></div>
+                    <div class="t-purple font-bold-700 font-18 my-1"><strong>{{__('translation.Contact us info')}}</strong></div>
                     <!-- Phone Information -->
                     <div class="my-2">
                         <span class="font-14 t-black">
@@ -32,7 +32,7 @@
                     <!-- Email Information -->
                     <div class="my-2">
                         <span class="font-14 t-black">
-                            <i class="link-icon" data-feather="mail"></i> Email
+                            <i class="link-icon" data-feather="mail"></i> {{__('translation.Email')}}
                         </span>
                         <span class="font-14 t-black mx-3">
 
@@ -50,7 +50,7 @@
                 <!-- Company Details Box -->
                 <div class="box">
                     <!-- Company Name -->
-                    <div class="t-purple font-bold-700 font-18 my-3"><strong>Company Name : @if ($contact)
+                    <div class="t-purple font-bold-700 font-18 my-3"><strong>{{__('translation.Company Name')}} : @if ($contact)
                             <strong style="color:#ac8511"> {{ $contact->CompanyName }}</strong>
                             @else
                             Company Name not available
@@ -58,7 +58,7 @@
 
                     <!-- Company Address -->
                     <div class="my-2 font-14 t-black">
-                        <div class="t-purple font-bold-700 font-18 my-3"><strong>Company Address</strong></div>
+                        <div class="t-purple font-bold-700 font-18 my-3"><strong>{{__('translation.Address')}}</strong></div>
 
                         @if ($contact)
                         {{ $contact->address }}<br>
@@ -71,7 +71,7 @@
                     </div>
                     <!-- Company Site -->
                     <div class="my-2 font-14 t-black">
-                        <div class="t-purple font-bold-700 font-18 my-3"><strong>Site : <a href="" target="_blank"> @if ($contact)
+                        <div class="t-purple font-bold-700 font-18 my-3"><strong>{{__('translation.Url Link')}} : <a href="" target="_blank"> @if ($contact)
                                     <a href="{{ $contact->UrlLink }}" target="_blank">{{ $contact->UrlLink }}</a>
                                     @else
                                     URL not available
@@ -103,7 +103,7 @@
                                     <div class="col-12 col-lg-6">
                                         <div class="px-2">
                                             <div class="mb-3 d-flex flex-column">
-                                                <label class="font-16 form-label font-bold-700">Email Address</label>
+                                                <label class="font-16 form-label font-bold-700">{{__('translation.Email')}}</label>
                                                 <input type="email" class="form-control" value="{{ Auth::guard('web')->user()->email }}" disabled>
                                             </div>
                                         </div>
@@ -132,8 +132,20 @@
                                         </div>
                                         <!-- Send Message Button -->
                                         <div class="d-flex justify-content-end my-4">
-                                            <button type="submit" class="btn btn-outline-dark">Send Message</button>
+                                            <button type="button" id="confirmButton" class="btn btn-outline-dark">{{__('translation.Confirm')}}</button>
                                         </div>
+
+                                        <script>
+                                            document.getElementById('confirmButton').addEventListener('click', function() {
+                                                Swal.fire({
+                                                    icon: 'success'
+                                                    , title: 'Confirmed!'
+                                                    , text: 'Your action has been successfully completed.'
+                                                    , confirmButtonText: 'OK'
+                                                });
+                                            });
+
+                                        </script>
                                     </div>
                                 </div>
                             </div>
@@ -148,6 +160,7 @@
     </div>
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 @endsection

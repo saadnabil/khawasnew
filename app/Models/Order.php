@@ -12,19 +12,33 @@ class Order extends Model
 
     protected $guarded = [];
 
-    // public function order_details(){
-    //     return $this->hasMany(OrderDetail::class);
-    // }
+    public function order_details(){
+        return $this->hasMany(order_details::class);
+    }
+  
 
-    // public function address(){
-    //     return $this->belongsTo(Address::class);
-    // }
+    public function address(){
+        return $this->belongsTo(Address::class);
+    }
 
-    // public function coupon(){
-    //     return $this->belongsTo(Coupon::class);
-    // }
+    public function coupon(){
+        return $this->belongsTo(Coupon::class);
+    }
+  
 
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+public function item()
+{
+    return $this->belongsTo(Item::class, 'item_id');
+}
+
+public function taxtes()
+{
+    return $this->hasMany(ItemTax::class, 'item_id');
+}
+    
+
 }

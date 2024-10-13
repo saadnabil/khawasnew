@@ -2,182 +2,93 @@
 
 @section('content')
 
-						<h2 class="page-title d-none d-sm-block">WishList</h2>
-<br>			  
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-<div class="row">
-	<div class="col-xl-3">
-		<div class="card">
-			<div class="position-relative img-overlay">
-				<img src="assets/images/small/small-1.jpg" alt="" height="150" width="100%" class="object-fit-cover">
-			</div>
-			<div class="card-body">
-				<div class="text-center">
-					<div class="pt-4">
-						<h4 class="mb-1">Cheese</h4>
-						<p class="mb-2">Price: <strong>€605,00</strong></p>
-					</div>
-					<ul class="d-flex justify-content-around list-unstyled border-top border-dark-subtle pt-2 text-center mb-0">
-						<li>
-							<button type="button" data-bs-toggle="modal"data-bs-target="#exampleModal"
-							 class="btn btn-primary"><i class="ri bi-cart-fill"></i></button>
-
-							<a href="wishlist.html" class="btn btn-light ml-2"><i class="ri bi-heart-fill"></i></a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-	
+<h2 class="page-title d-none d-sm-block">{{__('translation.Wishlist')}}</h2>
+<br>
+<div class="row" id="myProducts">
 
 
-	<div class="col-xl-3">
-		<div class="card">
-			<div class="position-relative img-overlay">
-				<img src="assets/images/small/small-2.jpg" alt="" height="150" width="100%" class="object-fit-cover">
-			</div>
-			<div class="card-body">
-				<div class="text-center">
-					<div class="pt-4">
-						<h4 class="mb-1">Cheese</h4>
-						<p class="mb-2">Price: <strong>€605,00</strong></p>
-					</div>
-					<ul class="d-flex justify-content-around list-unstyled border-top border-dark-subtle pt-2 text-center mb-0">
-						<li>
-							<button type="button" data-bs-toggle="modal"data-bs-target="#exampleModal"
-							class="btn btn-primary"><i class="ri bi-cart-fill"></i></button>													<button class="btn btn-light ml-2"><i class="ri bi-heart-fill"></i></button>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-
-
-	<div class="col-xl-3">
-		<div class="card">
-			<div class="position-relative img-overlay">
-				<img src="assets/images/small/small-5.jpg" alt="" height="150" width="100%" class="object-fit-cover">
-			</div>
-			<div class="card-body">
-				<div class="text-center">
-					<div class="pt-4">
-						<h4 class="mb-1">Cheese</h4>
-						<p class="mb-2">Price: <strong>€605,00</strong></p>
-					</div>
-					<ul class="d-flex justify-content-around list-unstyled border-top border-dark-subtle pt-2 text-center mb-0">
-						<li>
-							<button type="button" data-bs-toggle="modal"data-bs-target="#exampleModal"
-							class="btn btn-primary"><i class="ri bi-cart-fill"></i></button>													<button class="btn btn-light ml-2"><i class="ri bi-heart-fill"></i></button>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-
-	
-	<div class="col-xl-3">
-		<div class="card">
-			<div class="position-relative img-overlay">
-				<img src="assets/images/small/small-7.jpg" alt="" height="150" width="100%" class="object-fit-cover">
-			</div>
-			<div class="card-body">
-				<div class="text-center">
-					<div class="pt-4">
-						<h4 class="mb-1">Cheese</h4>
-						<p class="mb-2">Price: <strong>€605,00</strong></p>
-					</div>
-					<ul class="d-flex justify-content-around list-unstyled border-top border-dark-subtle pt-2 text-center mb-0">
-						<li>
-							
-							<button type="button" data-bs-toggle="modal"data-bs-target="#exampleModal"
-							 class="btn btn-primary"><i class="ri bi-cart-fill"></i></button>
-								
-							<button class="btn btn-light ml-2"><i class="ri bi-heart-fill"></i></button>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-
+    @include('users.wishlist.wishlist-items')
 
 
 </div>
 
-<!--Model-->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 id="modalTitle" class="modal-title title">Cheese</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body p-0">
-				<div class="card shadow border-0">
-					<div class="card-body px-lg-5 py-lg-5">
-						<div class="row">
-							<div class="col-lg-6 text-center" id="modalImgPart">
-								<img id="modalImg" src="assets/images/tree logo.png" class="img-fluid image " alt=" Image Not Found">
-							</div>
-							<div class="col-lg-6" id="modalItemDetailsPart">
-								<input id="modalID" type="hidden">
-								<div id="modalItemDetailsPart">
-									<input id="modalID" type="hidden">
-									<br>
-									<h5 id="modalDescription"><strong>Description</strong> </h5>
-									<p class="description">Hello</p>
-									<br>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-									<ul class="list-group">
-										<li class="list-group-item ">Unit  : Carton <span class="unit"></span></li>
-										<li class="list-group-item ">Unit Price : 2 Euro <span
-												class="total badge bg-primary"></span></li>
-										
-									</ul>
-									<br>
-									<div class="quantity-area">
-										<div class="form-group">
-											<label style="color: goldenrod" class="form-control-label"
-												for="quantity">Quantity</label>
-											<form method="POST" id="" action="">
-												
-												<input type="number" name="quantity" id="quantity"
-													class="form-control form-control-alternative" min="1"
-													name="quantity" placeholder="1" value="1" required autofocus>
-												<input placeholder="item id" type="hidden" name="item_id"
-													value="" />
-											</form>
-										</div>
-										<br>
-										<div class="quantity-btn">
-											<button type="submit" id="secondButton" data-route="" form=""
-												class="btn btn-primary ">Add To Cart</button>
-										</div>
 
-										<div class="offcanvas offcanvas-end" id="demo">
-											<!-- Offcanvas Modal Content -->
-										</div>
-									</div>
-									<!-- Inform if closed -->
-									<!-- End inform -->
-								</div>
-								<!-- Inform if closed -->
-								<!-- End inform -->
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-		
-	
+<script>
+$(document).ready(function () {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+   $(document).on('click', 'button.additem', function(e) {
+            e.preventDefault();
+
+            let form = $('#additem')[0];
+            let data = new FormData(form);
+            let url = $(this).data('route');
+
+            $.ajax({
+                url: url
+                , method: 'POST'
+                , data: data
+                , processData: false
+                , contentType: false
+                , success: function(response) {
+                    $('.modal').modal('hide'); // Hide any modal if open
+                    $('#usercart').html(response); // Update cart HTML
+                    $('.opencartsidebar').trigger('click'); // Trigger click to open cart sidebar
+                }
+                , error: function(xhr) {
+                    if (xhr.status === 422 && xhr.responseJSON.error) {
+                        alert(xhr.responseJSON.error); // Display the error message
+                    } 
+                }
+            });
+        });
+
+
+         $(document).on('click', 'a.addwishlist', function(e) {
+            e.preventDefault();
+            var url = $(this).data('route');
+            var element = $(this);
+            $.ajax({
+                url: url
+                , method: 'GET'
+                , processData: false
+                , contentType: false
+                , success: function(response) {
+                    if (response.status === 1) {
+                        element.addClass('text-danger');
+                    } else {
+                        element.removeClass('text-danger');
+                    }
+
+                    $('#myProducts').html(response.view);
+                }
+                , error: function() {
+                    alert('An error occurred while processing your request.');
+                }
+            });
+        });
+
+
+
+
+
+
+
+});
+
+
+
+
+</script>
+
+
 @endsection

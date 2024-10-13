@@ -3,8 +3,11 @@
 namespace App\Http;
 
 use App\Http\Middleware\AdminCheckStatus;
+use App\Http\Middleware\HandleLang;
 use App\Http\Middleware\UserCheckAuth;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Console\Scheduling\Schedule;
+
 
 class Kernel extends HttpKernel
 {
@@ -23,6 +26,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        
     ];
 
     /**
@@ -38,7 +42,9 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            // HandleLang::class,
+            HandleLang::class,
+            \App\Http\Middleware\StoreLastVisitedUrl::class,
+            
 
         ],
 
@@ -48,6 +54,12 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
+
+    protected function schedule(Schedule $schedule)
+    {
+        $schedule->command('app:check-new-orders')->everyFiveMinutes();
+    }
+    
 
     /**
      * The application's middleware aliases.
@@ -69,6 +81,13 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admincheckstatus' =>AdminCheckStatus::class,
         'usercheckauth' =>UserCheckAuth::class,
+        'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
+        'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
+        'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
+        'log.registered.user.ip' => \App\Http\Middleware\LogRegisteredUserIP::class,
+        'check.license' => \App\Http\Middleware\CheckLicense::class,
+        
+        
         
     ];
 }

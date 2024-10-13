@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="{{ app()->getLocale() }}">
 	<head>
 		<meta charset="utf-8" />
 		<title>Dashboard | Users | Elkhawas Trade</title>
@@ -23,14 +22,114 @@
 		<script src="{{asset('assets/js/config.js')}}"></script>
 
 		<!-- App css -->
-		<link href="{{asset('assets/css/app.min.css')}}" rel="stylesheet" type="text/css"
-			id="app-style" />
+	@if ( app()->getLocale() == "ar" )
+    <link href="{{asset('assets/css/app-rtl.min.css')}}" rel="stylesheet" type="text/css" id="app-style" />
+
+    @else
+    <link href="{{asset('assets/css/app.min.css')}}" rel="stylesheet" type="text/css" id="app-style" />
+    @endif
 
 		<!-- Icons css -->
 		<link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
+		    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 	</head>
 
+<style>
+
+.card.hover-effect {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card.hover-effect:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.img-overlay {
+    position: relative;
+}
+
+.img-overlay img {
+    display: block;
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.out-of-stock-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.pt-4 {
+    padding-top: 1.5rem !important;
+}
+
+.mb-1 {
+    margin-bottom: 0.25rem !important;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem !important;
+}
+
+.border-top {
+    border-top: 1px solid #dee2e6 !important;
+}
+
+.border-dark-subtle {
+    border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.pt-2 {
+    padding-top: 0.5rem !important;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-light {
+    color: #212529;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+}
+
+.ml-2 {
+    margin-left: 0.5rem !important;
+}
+</style>
+
+  @stack('style')
+
 	<body>
+	 @include('sweetalert::alert')
 		<!-- Begin page -->
 		<div class="wrapper">
 
@@ -238,8 +337,10 @@
 					</div>
 				</div>
 			</div>
-			
+
 		</div>
+		@include('sweetalert::alert')
+
 
 		<!-- Vendor js -->
 		<script src="{{asset('assets/js/vendor.min.js')}}"></script>
@@ -254,9 +355,25 @@
 			src="{{asset('assets/vendor/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js')}}"></script>
 		<script
 			src="{{asset('assets/vendor/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js')}}"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script>
+                var translations = {
+                    Error: '{{ __("translation.Error") }}',
+                    An_unexpected_error_occurred: '{{ __("translation.An_unexpected_error_occurred") }}',
+                    Success: '{{ __("translation.Success") }}',
+                    Item_quantity_increased: '{{ __("translation.Item_quantity_increased") }}',
+                    Item_quantity_decreased: '{{ __("translation.Item_quantity_decreased") }}',
+                    Quantity_requested_exceeds_available_stock: '{{ __("translation.Quantity_requested_exceeds_available_stock") }}',
+                    You_can_only_order: '{{ __("translation.You_can_only_order") }}',
+                    Item_added_to_cart_successfully: '{{ __("translation.Item_added_to_cart_successfully") }}',
+                };
+            </script>
 
 		<!-- Dashboard App js -->
 		<script src="{{asset('assets/js/pages/dashboard.js')}}"></script>
+		<script src="{{ asset('assets/js/sharedscript.js') }}"></script>
+
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 
 		<!-- App js -->
 		<script src="{{asset('assets/js/app.min.js')}}"></script>

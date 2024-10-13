@@ -14,4 +14,7 @@ class contactusUserController extends Controller
 
         return response()->view('users.settings.contactUs',compact('contact'));
     }
+    public function inactiveDesign(){
+        return view('admins.settings.inActive_Admin');
+    }
 }

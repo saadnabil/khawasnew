@@ -525,8 +525,13 @@ class ThemeCustomizer {
                 self.html.classList.toggle('sidebar-enable');
 
             });
+
+            
+
         }
     }
+
+    
 
     showBackdrop() {
         const backdrop = document.createElement('div');
@@ -612,4 +617,19 @@ class ThemeCustomizer {
     }
 }
 
+
 new ThemeCustomizer().init();
+
+
+import Echo from 'laravel-echo';
+import Pusher from 'pusher-js';
+
+// Configure Pusher and Echo
+window.Pusher = Pusher;
+
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: process.env.MIX_PUSHER_APP_KEY,
+    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+    forceTLS: true
+});

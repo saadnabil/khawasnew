@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admins\ContactUsRequest;
 use App\Models\ContactUs;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class contactUsController extends Controller
 {
@@ -13,7 +15,7 @@ class contactUsController extends Controller
     public function index()
     {
 
-        $data = ContactUs::latest()->paginate(8);
+        $data = ContactUs::latest()->get();
 
         // $contact = new ContactUs();
 
@@ -34,10 +36,15 @@ class contactUsController extends Controller
             $contact->update($validatedData);
     
             // Flash a success message and redirect to the index route
-            session()->flash('success', 'Information updated successfully');
+            Alert::toast('Information updated successfully', 'success');
+
             return redirect()->route('ContactUs.index');
        
         
+    }
+
+    public function inactiveDesign(){
+        return view('admins.settings.inActive_Admin');
     }
     //
 }

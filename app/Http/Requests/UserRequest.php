@@ -29,7 +29,8 @@ class UserRequest extends FormRequest
                 'phone' => 'required',
                 'image' => 'nullable|image|mimes:png,jpg,gif,svg',
                 'status' => 'nullable',
-                'password' =>  ['required' , 'string'],
+                'usercode' => ['nullable', 'numeric', 'digits_between:5,20'],
+                'password' =>  ['required' , 'string','min:6'],
                 'confirmpassword' =>  ['required_with:password' , 'string','same:password'],
             ];
         }else
@@ -39,7 +40,8 @@ class UserRequest extends FormRequest
                 'phone' => 'required',
                 'image' => 'nullable|image|mimes:png,jpg,gif,svg',
                 'status' => 'nullable',
-                'password' =>  ['nullable' , 'string'],
+                'usercode' => ['nullable', 'numeric', 'digits_between:5,20'],
+                'password' =>  ['nullable' , 'string','min:6'],
                 'confirmpassword' =>  ['nullable','required_with:password' , 'string','same:password'],
             ];
         }
